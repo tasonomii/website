@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nichinichi — TASONOMII.com</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0ece3;
+      --bg-secondary: #e8e2d6;
+      --text-primary: #2a2a2a;
+      --text-secondary: #8a8578;
+      --border: rgba(0,0,0,0.08);
+      --border-hover: rgba(0,0,0,0.18);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    .logo {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    /* WORK HERO */
+    .work-hero {
+      width: 100%;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .work-hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 16 / 9;
+    }
+
+    /* WORK CONTENT */
+    .work-content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .work-category {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .work-content h1 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .work-meta {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    .work-desc {
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+    .work-desc p + p {
+      margin-top: 16px;
+    }
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 0.5px solid var(--border-hover);
+      border-radius: 20px;
+      transition: all 0.15s;
+    }
+    .back-link:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 16px 20px; }
+      .work-content { padding: 32px 20px 60px; }
+      .work-content h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">TASONOMII.com</a>
+    <div class="nav-links">
+      <a href="index.html#works">works</a>
+      <a href="index.html#about">about</a>
+      <a href="blog.html">blog</a>
+    </div>
+  </nav>
+
+  <div class="work-hero">
+    <img src="nichinichi_1920.png" alt="nichinichi">
+  </div>
+
+  <div class="work-content">
+    <p class="work-category">Book Design</p>
+    <h1>nichinichi</h1>
+    <p class="work-meta">2026 · Book Design</p>
+    <div class="work-desc">
+      <p>日常の何気ない瞬間を切り取ったブックデザイン。ページをめくるたびに、日々の中に隠れた小さな発見が並んでいます。</p>
+    </div>
+    <a class="back-link" href="index.html#works">← Back to Works</a>
+  </div>
+
+</body>
+</html>

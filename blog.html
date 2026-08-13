@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — TASONOMII</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0ece3;
+      --bg-secondary: #e8e2d6;
+      --text-primary: #2a2a2a;
+      --text-secondary: #8a8578;
+      --border: rgba(0,0,0,0.08);
+      --border-hover: rgba(0,0,0,0.18);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    .logo {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--text-primary); }
+
+    /* HEADER */
+    .blog-header {
+      padding: 60px 40px 40px;
+      text-align: center;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .blog-header h1 {
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .blog-header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* POST LIST */
+    .posts {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+    .post {
+      display: block;
+      padding: 28px 0;
+      border-bottom: 0.5px solid var(--border);
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: opacity 0.2s;
+    }
+    .post:first-of-type { padding-top: 0; }
+    .post:hover { opacity: 0.8; }
+    .post-date {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .post-title {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .post-excerpt {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    .post-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .post-tag {
+      font-size: 11px;
+      padding: 3px 12px;
+      border: 0.5px solid var(--border-hover);
+      border-radius: 20px;
+      color: var(--text-secondary);
+    }
+
+    /* ARTICLE VIEW */
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+    .article-back:hover { color: var(--text-primary); }
+    .article h1 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .article-meta {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .article-body {
+      font-size: 15px;
+      line-height: 2;
+      color: var(--text-primary);
+    }
+    .article-body h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 40px 0 16px;
+    }
+    .article-body h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 32px 0 12px;
+    }
+    .article-body p { margin-bottom: 20px; }
+    .article-body img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 24px 0;
+      border: 0.5px solid var(--border);
+    }
+    .article-body blockquote {
+      border-left: 2px solid var(--border-hover);
+      padding-left: 20px;
+      margin: 24px 0;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    .article-body code {
+      background: var(--bg-secondary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .article-body pre {
+      background: var(--bg-secondary);
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 24px 0;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .article-body pre code { background: none; padding: 0; }
+
+    /* FOOTER */
+    footer {
+      padding: 22px 40px;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .social-links {
+      display: flex;
+      gap: 8px;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 6px 14px;
+      border: 0.5px solid var(--border-hover);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .social-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+    .social-btn svg { flex-shrink: 0; }
+
+    @media (max-width: 480px) {
+      nav { padding: 16px 20px; }
+      .blog-header { padding: 40px 20px 28px; }
+      .posts, .article { padding: 28px 20px; }
+      footer { padding: 18px 20px; flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">TASONOMII.com</a>
+    <div class="nav-links">
+      <a href="index.html#works">works</a>
+      <a href="index.html#about">about</a>
+      <a href="blog.html" class="active">blog</a>
+      <a href="mailto:your@email.com">contact</a>
+    </div>
+  </nav>
+
+  <!-- 記事一覧ビュー -->
+  <div id="listView">
+    <header class="blog-header">
+      <h1>Blog</h1>
+      <p>制作の記録・メモ</p>
+    </header>
+
+    <div class="posts" id="postList">
+      <!-- 記事は JS で生成 -->
+    </div>
+  </div>
+
+  <!-- 記事本文ビュー -->
+  <div id="articleView" style="display:none;">
+    <div class="article" id="articleContent"></div>
+  </div>
+
+  <footer>
+    <span class="footer-copy">© 2025 tasonomii.com</span>
+    <div class="social-links">
+      <a class="social-btn" href="https://x.com/tasono_mii" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        X
+      </a>
+      <a class="social-btn" href="https://www.instagram.com/tasono_mii/" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+      <a class="social-btn" href="https://www.youtube.com/@tasono-mii" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.7 5 12 5 12 5s-4.7 0-7 .1c-.4.1-1.3.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.9C6.7 19 12 19 12 19s4.7 0 7-.1c.4-.1 1.3-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/>
+        </svg>
+        YouTube
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // 記事データ
+    const posts = [
+      {
+        id: 'post-1',
+        date: '2025.08.10',
+        title: 'ショートアニメーション制作の裏側',
+        excerpt: '「ミーリーのトッピング大作戦」の制作過程について、企画から完成までを振り返ります。',
+        tags: ['Animation', 'Making'],
+        body: `
+          <h2>はじめに</h2>
+          <p>今回はショートアニメーション「ミーリーのトッピング大作戦」の制作過程をまとめました。企画から完成まで約3ヶ月、その間に試行錯誤したことを記録として残しておきます。</p>
+
+          <h2>企画段階</h2>
+          <p>最初に決めたのは「食べ物をテーマにした短い物語」というコンセプトです。キャラクターのミーリーは、トッピングを集めてピザを完成させるというシンプルなストーリーにしました。</p>
+
+          <blockquote>シンプルな物語ほど、演出とアニメーションの質が問われる。</blockquote>
+
+          <h2>制作工程</h2>
+          <h3>1. 絵コンテ</h3>
+          <p>全体の流れを決めるため、まず絵コンテを描きました。約60カット、尺は1分半を想定しています。</p>
+
+          <h3>2. 3Dモデリング</h3>
+          <p>キャラクターと背景をBlenderでモデリングしました。トゥーンレンダリングで統一感を出しています。</p>
+
+          <h3>3. アニメーション</h3>
+          <p>リギングからアニメーションまで一貫して行いました。表情の変化にこだわり、細かい演技をつけています。</p>
+
+          <h2>まとめ</h2>
+          <p>初めての本格的なショートアニメーションでしたが、多くの学びがありました。次回作ではさらにクオリティを上げられるよう頑張ります。</p>
+        `
+      },
+      {
+        id: 'post-2',
+        date: '2025.07.22',
+        title: 'Blenderで作るトゥーンシェーダー入門',
+        excerpt: 'ノードベースで作るトゥーンルックの基本。シェーダー設定のポイントを解説します。',
+        tags: ['3DCG', 'Tutorial'],
+        body: `
+          <h2>トゥーンシェーダーとは</h2>
+          <p>トゥーンシェーダーは、アニメ調のフラットな陰影を表現するためのシェーダーです。Blenderではノードエディタで簡単に構築できます。</p>
+
+          <h2>基本構成</h2>
+          <p>Principled BSDF に加えて、以下のノードを組み合わせます。</p>
+          <pre><code>Diffuse BSDF
+  └─ Shader to RGB
+      └─ Color Ramp（段階的な陰影）
+          └─ Mix Shader</code></pre>
+
+          <h2>ポイント</h2>
+          <p>Color Ramp の段階数を増やすと陰影が滑らかになり、減らすとよりアニメ調になります。作品の雰囲気に合わせて調整しましょう。</p>
+        `
+      },
+      {
+        id: 'post-3',
+        date: '2025.06.15',
+        title: 'イラスト制作の環境づくり',
+        excerpt: '作業効率を上げるためのデジタルイラスト環境。ペンタブ設定や画面構成の工夫。',
+        tags: ['Illustration', 'Workflow'],
+        body: `
+          <h2>作業環境の見直し</h2>
+          <p>イラストを描く上で、環境づくりはとても重要です。今回は自分が実際に使っている環境を紹介します。</p>
+
+          <h2>使用機材</h2>
+          <p>ペンタブレットは液タブを使用しています。筆圧感知の設定を細かく調整することで、線の強弱が描きやすくなりました。</p>
+
+          <h2>画面構成</h2>
+          <p>キャンバスを中央に、左右にツールパネルとカラーパレットを配置するのが自分には合っています。ショートカットキーも頻繁に使うものだけ覚えています。</p>
+        `
+      },
+      {
+        id: 'post-4',
+        date: '2025.05.03',
+        title: 'ポートフォリオサイトをリニューアルしました',
+        excerpt: '新しいポートフォリオサイトのデザインについて。シンプルさを追求した構成の話。',
+        tags: ['Web', 'Design'],
+        body: `
+          <h2>リニューアルのきっかけ</h2>
+          <p>以前のサイトは情報量が多く、見たい作品にたどり着きにくいという課題がありました。そこで、シンプルで作品が引き立つデザインを目指して作り直しました。</p>
+
+          <h2>デザインコンセプト</h2>
+          <p>余白をたっぷり取り、作品のサムネイルをグリッドで並べる構成にしました。カテゴリーフィルターで絞り込みもできます。</p>
+
+          <h2>今後の予定</h2>
+          <p>ブログ機能を追加し、制作過程も発信していく予定です。ぜひチェックしてみてください。</p>
+        `
+      }
+    ];
+
+    const listView = document.getElementById('listView');
+    const articleView = document.getElementById('articleView');
+    const postList = document.getElementById('postList');
+    const articleContent = document.getElementById('articleContent');
+
+    // 一覧を描画
+    posts.forEach(post => {
+      const a = document.createElement('a');
+      a.className = 'post';
+      a.href = '#' + post.id;
+      a.dataset.id = post.id;
+
+      const tags = post.tags.map(t => `<span class="post-tag">${t}</span>`).join('');
+
+      a.innerHTML = `
+        <div class="post-date">${post.date}</div>
+        <div class="post-title">${post.title}</div>
+        <div class="post-excerpt">${post.excerpt}</div>
+        <div class="post-tags">${tags}</div>
+      `;
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        showArticle(post.id);
+      });
+
+      postList.appendChild(a);
+    });
+
+    // 記事を表示
+    function showArticle(id) {
+      const post = posts.find(p => p.id === id);
+      if (!post) return;
+
+      const tags = post.tags.map(t => `<span class="post-tag">${t}</span>`).join('');
+
+      articleContent.innerHTML = `
+        <a class="article-back" href="#" id="backBtn">← ブログ一覧に戻る</a>
+        <h1>${post.title}</h1>
+        <div class="article-meta">${post.date} · ${tags}</div>
+        <div class="article-body">${post.body}</div>
+      `;
+
+      document.getElementById('backBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        showList();
+      });
+
+      listView.style.display = 'none';
+      articleView.style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // 一覧を表示
+    function showList() {
+      articleView.style.display = 'none';
+      listView.style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // URLハッシュで記事を直接開く
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = location.hash.replace('#', '');
+      if (hash && posts.some(p => p.id === hash)) {
+        showArticle(hash);
+      }
+    });
+  </script>
+
+</body>
+</html>
