@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TASONOMII — 2D&3D Creator</title>
+  <title>About — TASONOMII</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -53,81 +53,80 @@
       transition: color 0.15s;
     }
     .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--text-primary); }
 
-    /* HERO */
-    .hero {
-      padding: 300px 240px 160px;
-      text-align: center;
-      border-bottom: 20.5px solid var(--border);
-      position: relative;
-      background: url('burger.gif') left center / auto 108% no-repeat;
+    /* PAGE HEADER */
+    .page-header {
+      padding: 48px 40px 8px;
     }
-    .hero > * {
-      position: relative;
+    .page-header h1 {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
-    .hero-brand {
+
+    /* ABOUT */
+    .about {
+      padding: 40px;
+      max-width: 720px;
+    }
+    .about-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+    }
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
-      margin-bottom: 24px;
+      font-size: 48px;
+      flex-shrink: 0;
     }
-    .hero-text {
-      text-align: center;
-    }
-    .hero-text h1 {
-      font-size: 36px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      margin-bottom: 6px;
+    .about-text h2 {
+      font-size: 18px;
+      font-weight: 500;
       color: var(--text-primary);
-      text-transform: uppercase;
+      margin-bottom: 12px;
     }
-    .hero-subtitle {
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-    }
-    .hero p {
+    .about-text p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.8;
-      max-width: 500px;
-      margin: 0 auto 28px;
+      line-height: 2;
     }
-    @media (max-width: 480px) {
-      .hero-brand {
-        flex-direction: column;
-        gap: 16px;
-      }
-      .hero-text {
-        text-align: center;
-      }
-      .hero-text h1 {
-        font-size: 28px;
-      }
+    .about-contact {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 0.5px solid var(--border);
     }
-    .hero-links {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .hero-link {
-      font-size: 12px;
-      padding: 8px 24px;
-      border: 0.5px solid var(--border-hover);
-      border-radius: 24px;
-      color: var(--text-secondary);
+    .about-contact a {
+      color: var(--text-primary);
       text-decoration: none;
-      transition: all 0.15s;
+      border-bottom: 0.5px solid var(--border-hover);
+      transition: opacity 0.15s;
     }
-    .hero-link:hover {
-      background: var(--text-primary);
-      color: var(--bg);
-      border-color: var(--text-primary);
+    .about-contact a:hover { opacity: 0.6; }
+
+    @media (max-width: 480px) {
+      nav { padding: 16px 20px; }
+      .page-header { padding: 32px 20px 4px; }
+      .about { padding: 24px 20px; }
+      .about-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+      .avatar {
+        width: 96px;
+        height: 96px;
+        font-size: 40px;
+      }
     }
 
     /* FOOTER */
@@ -137,6 +136,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .footer-copy {
       font-size: 12px;
@@ -173,24 +174,24 @@
     <a class="logo" href="index.html">TASONOMII.com</a>
     <div class="nav-links">
       <a href="works.html">works</a>
-      <a href="about.html">about</a>
+      <a href="about.html" class="active">about</a>
       <a href="store.html">store</a>
       <a href="blog.html">blog</a>
     </div>
   </nav>
 
-  <section class="hero">
-    <div class="hero-brand">
-      <div class="hero-text">
-        <h1>MII TASONO</h1>
-        <p class="hero-subtitle">たそのみい</p>
+  <header class="page-header">
+    <h1>About</h1>
+  </header>
+
+  <section class="about">
+    <div class="about-card">
+      <div class="avatar">🍙</div>
+      <div class="about-text">
+        <h2>たその みい（Mii Tasono）</h2>
+        <p>東京都立大学大学院システムデザイン研究科インダストリアルアート学域 修士1年<br>ショートアニメーションを中心に3DCGやイラスト、グラフィック関連など色々と制作しています。<br>商業イラストからパーソナルワークまで幅広く活動中です。</p>
+        <p class="about-contact">ご連絡はこちらまで：<a href="mailto:tasonomii@gmail.com">✉️ tasonomii@gmail.com</a></p>
       </div>
-    </div>
-    <p>アートアニメーションを作るのも観るのも大好きな大学院生です</p>
-    <div class="hero-links">
-      <a class="hero-link" href="works.html">View Works</a>
-      <a class="hero-link" href="about.html">About Me</a>
-      <a class="hero-link" href="store.html">Store</a>
     </div>
   </section>
 
